@@ -1,0 +1,25 @@
+﻿@page "/"
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ButtonOnClick">Click</MudButton>
+
+@code {
+    [Inject]
+    public required IDialogService dialogService {get;set;}
+
+    async Task ButtonOnClick()
+    {
+        DialogParameters parameters = new DialogParameters<Dialog>
+        {
+            { x => x.Hello, "World" }                
+        };
+
+        DialogOptions options = new DialogOptions
+        {
+            CloseOnEscapeKey = true,
+            FullWidth = true,
+            MaxWidth = MaxWidth.Large,
+            Position = DialogPosition.TopCenter
+        };
+
+        await dialogService.ShowAsync<Dialog>("TestDialog", parameters, options);
+    }
+}
